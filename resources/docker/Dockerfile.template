@@ -1,0 +1,9 @@
+FROM maven:3.6.3-openjdk-8
+
+EXPOSE 8080
+
+COPY . .
+
+RUN mvn clean package
+
+CMD ["java", "-jar", "target/java-maven-app-{{APP_VERSION}}-SNAPSHOT.jar"]
