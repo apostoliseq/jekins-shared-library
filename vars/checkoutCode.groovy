@@ -1,9 +1,8 @@
 def call(String repoUrl, Map config = [:]) {
     def branch = config.branch ?: '*/main'
     def credentialsId = config.credentialsId ?: 'github'
-    def includeChangelog = config.includeChangelog ?: != false
-    def includePoll = config.includePoll ?: != false
-
+    def includeChangelog = config.includeChangelog != false
+    def includePoll = config.includePoll != false
 
     checkout changelog: includeChangelog,
             poll: includePoll,
@@ -16,6 +15,4 @@ def call(String repoUrl, Map config = [:]) {
                 ]]
             )
 }
-    // * Pushes new Dockerfile to nexus
-
     // * kubectl deploys the new Dockerfile that's hosted on nexus

@@ -1,14 +1,14 @@
-def call(String newVersion, String dockerfilePath = 'Dockerfile') {
+def call(String newVersion, String pomPath = 'pom.xml') {
 
-    echo "Updating Dockerfile version to: ${newVersion}"
+    echo "Updating POM version to: ${newVersion}"
     
-    def dockerfileContent = readFile file: dockerfilePath
+    def pomContent = readFile file: pomPath
     
-    def versionRegex = /(<version>)\d+\.\d+\.\d+(-.*?</version>)/
+    def versionRegex = /(target\/java-maven-app-)\d+\.\d+\.\d+(.*?\.jar")/
 
-    def updatedDockerfileContent = dockerfileContent.replaceFirst(versionRegex, "\$1${newVersion}\$2")
+    def updatedPomContent = pomContent.replaceFirst(versionRegex, "\$1${newVersion}\$2")
 
-    writeFile file: dockerfilePath, text: updatedDockerfileContent
+    writeFile file: pomPath, text: updatedPomContent
     
-    echo "Updated version in ${dockerfilePath} to ${newVersion}"
+    echo "Updated version in ${pomPath} to ${newVersion}"
 }
