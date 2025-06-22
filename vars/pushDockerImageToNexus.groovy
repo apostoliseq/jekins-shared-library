@@ -9,7 +9,7 @@ def call(String appName, String version, Map config = [:]) {
     stage('Build Docker Image') {
         sh """
             echo "Building docker image: ${imageTag}"
-            docker build -f ${dockerfilePath} -t ${imageTag} .
+            docker build --build-arg APP_VERSION=${version} -f ${dockerfilePath} -t ${imageTag} .
             docker tag ${imageTag}
         """
     }
